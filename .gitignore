@@ -47,3 +47,7 @@ models/
 # Cache
 .cache/
 *.cache
+__pycache__/
+
+# Trash
+.Trash-*
