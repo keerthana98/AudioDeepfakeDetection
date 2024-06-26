@@ -1,0 +1,7 @@
+data_paths:
+  raw: "data/raw/"
+  processed: "data/processed/"
+  codecfake: 
+    zip_files: "data/raw/codecfake/zip"
+    audio_files: "data/raw/codecfake/audio"
+    label_files: "data/raw/codecfake/label"
