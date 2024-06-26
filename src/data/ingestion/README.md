@@ -12,7 +12,7 @@ data/
     └── codecfake/
         ├── __init__.py
         ├── download.py
-        ├── extract..py
+        ├── extract.py
         ├── codecfake_data_pipeline.py
         └── upload_to_huggingface.py
 ```
