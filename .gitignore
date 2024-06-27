@@ -45,6 +45,7 @@ models/
 *.ckpt
 
 # Cache
+cache/
 .cache/
 *.cache
 __pycache__/
