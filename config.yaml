@@ -5,3 +5,4 @@ data_paths:
     zip_files: "data/raw/codecfake/zip"
     audio_files: "data/raw/codecfake/audio"
     label_files: "data/raw/codecfake/label"
+    cache_files: "data/raw/codecfake/cache"
