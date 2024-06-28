@@ -10,6 +10,7 @@ datasets
 huggingface-hub
 
 # Audio Processing Libraries
+pydub
 librosa
 soundfile
 
@@ -31,3 +32,6 @@ werkzeug==2.0.1
 
 # Jupyter Environment
 jupyter
+IPython
+ipywidgets
+ipympl
