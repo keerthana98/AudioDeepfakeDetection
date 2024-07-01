@@ -13,6 +13,7 @@ huggingface-hub
 pydub
 librosa
 soundfile
+praat-parselmouth
 
 # Visualization Libraries
 matplotlib
@@ -35,3 +36,7 @@ jupyter
 IPython
 ipywidgets
 ipympl
+
+# Model Interpretation Libraries
+shap
+lime
