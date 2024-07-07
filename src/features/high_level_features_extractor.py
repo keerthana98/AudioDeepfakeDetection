@@ -62,14 +62,14 @@ class HighLevelFeatureExtractor:
             chroma_features_dict.update({f"chroma_{i+1}_{key}": value for key, value in stats.items()})
         return chroma_features_dict
     
-    # Compute Prosodic Features
     def _compute_prosodic_features(self, feature_dict, prosodic_features):
         prosodic_features_dict = {}
-        
         for feature_name in prosodic_features:
             if feature_name in ['speaking_rate', 'pauses']:
                 continue
             feature_array = feature_dict.get(feature_name)
+            if isinstance(feature_array, dict):
+                raise TypeError(f"Expected array for {feature_name}, but got {type(feature_array).__name__}")
             if feature_array is not None:
                 stats = StatisticalMeasures.compute_statistical_measures(feature_array, self.measures)
                 prosodic_features_dict.update({f"{feature_name}_{key}": value for key, value in stats.items()})
@@ -88,7 +88,6 @@ class HighLevelFeatureExtractor:
                     prosodic_features_dict[f'pause_{measure}'] = np.nan
 
         return prosodic_features_dict
-
 
     def high_level_feature_generator(self, low_level_gen):
         for low_level_features in low_level_gen:
