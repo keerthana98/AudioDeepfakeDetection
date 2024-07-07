@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
 from sklearn.decomposition import PCA
 
 
@@ -62,8 +63,14 @@ def plot_high_level_feature_dist(df, feature_list, target_column='real_or_fake')
 def perform_pca_and_plot(df, selected_features, target_column='real_or_fake'):
     # Standardize the features
     features = df[selected_features]
+    
+    # Handle missing values by imputation
+    imputer = SimpleImputer(strategy='mean')
+    imputed_features = imputer.fit_transform(features)
+    
+    # Standardize the features
     scaler = StandardScaler()
-    scaled_features = scaler.fit_transform(features)
+    scaled_features = scaler.fit_transform(imputed_features)
 
     # Apply PCA
     pca = PCA(n_components=2)

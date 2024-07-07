@@ -3,7 +3,7 @@ DEFAULT_SPECTRAL_FEATURES = [
     'spectral_flatness', 'spectral_rolloff', 'zero_crossing_rate', 
     'mfccs', 'chroma_stft', 'spectral_flux'
 ]
-DEFAULT_PROSODIC_FEATURES = ['f0', 'energy', 'speaking_rate', 'pauses']
+DEFAULT_PROSODIC_FEATURES = ['f0', 'energy', 'speaking_rate', 'pauses', 'formants']
 
 ALL_SPECTRAL_FEATURES = [
     'spectral_centroid', 'spectral_bandwidth', 'spectral_contrast', 
@@ -11,7 +11,7 @@ ALL_SPECTRAL_FEATURES = [
     'mfccs', 'chroma_stft', 'spectral_flux'
 ]
 
-ALL_PROSODIC_FEATURES = ['f0', 'energy', 'speaking_rate', 'pauses']
+ALL_PROSODIC_FEATURES = ['f0', 'energy', 'speaking_rate', 'pauses',  'formants']
 
 
 DEFAULT_FEATURES = {

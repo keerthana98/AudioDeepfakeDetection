@@ -5,7 +5,7 @@ from .features_list import ALL_FEATURES
 
 class HighLevelFeatureExtractor:
     def __init__(self, measures=None):
-        self.measures = measures
+        self.measures = measures if measures is not None else ['mean', 'std', 'var', 'min', 'max', 'range', '25th_percentile', '50th_percentile', '75th_percentile', 'skew', 'kurtosis']
 
     def compute_high_level_features(self, feature_dict):
         features = {
@@ -65,7 +65,7 @@ class HighLevelFeatureExtractor:
     def _compute_prosodic_features(self, feature_dict, prosodic_features):
         prosodic_features_dict = {}
         for feature_name in prosodic_features:
-            if feature_name in ['speaking_rate', 'pauses']:
+            if feature_name in ['speaking_rate', 'pauses', 'formants']:
                 continue
             feature_array = feature_dict.get(feature_name)
             if isinstance(feature_array, dict):
@@ -86,7 +86,13 @@ class HighLevelFeatureExtractor:
             else:
                 for measure in self.measures:
                     prosodic_features_dict[f'pause_{measure}'] = np.nan
-
+                    
+        if 'formants' in prosodic_features and 'formants' in feature_dict:
+            formant_values = feature_dict['formants']
+            if formant_values:
+                for key, value in formant_values.items():
+                    prosodic_features_dict[key] = value
+                
         return prosodic_features_dict
 
     def high_level_feature_generator(self, low_level_gen):
