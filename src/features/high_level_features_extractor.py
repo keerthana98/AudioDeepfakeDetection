@@ -19,6 +19,9 @@ class HighLevelFeatureExtractor:
         # Compute Prosodic Features
         features.update(self._compute_prosodic_features(feature_dict, ALL_FEATURES['prosodic']))
 
+        # Compute Voice Quality Features
+        features.update(self._compute_voice_quality_features(feature_dict, ALL_FEATURES['voice_quality']))
+
         return features
     
     # Compute Spectral Features
@@ -94,6 +97,14 @@ class HighLevelFeatureExtractor:
                     prosodic_features_dict[key] = value
                 
         return prosodic_features_dict
+    
+    def _compute_voice_quality_features(self, feature_dict, voice_quality_features):
+        voice_quality_features_dict = {}
+        for feature_name in voice_quality_features:
+            feature_value = feature_dict.get(feature_name)
+            if feature_value is not None:
+                voice_quality_features_dict[feature_name] = feature_value
+        return voice_quality_features_dict
 
     def high_level_feature_generator(self, low_level_gen):
         for low_level_features in low_level_gen:
