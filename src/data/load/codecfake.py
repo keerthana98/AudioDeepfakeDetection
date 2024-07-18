@@ -9,6 +9,9 @@ DATASET_NAME  = "codecfake-audio"
 REPO_ID       = f"{USERNAME}/{DATASET_NAME}"
 JSON_FILE_URL = f"https://huggingface.co/datasets/{REPO_ID}/resolve/main/audio_id_to_file_map.json"
 
+def get_parquet_file_path(partition_id):
+    return f"https://huggingface.co/datasets/{REPO_ID}/resolve/main/data/partition{partition_id}-00000-of-00001.parquet"
+
 def fetch_audio_id_list():
     """
     Fetch the list of audio IDs from the dataset.
@@ -61,5 +64,35 @@ def get_audio_dataset(audio_ids, cache_dir=None, max_retries=3, backoff_factor=0
                             wait_time = backoff_factor * (2 ** (retry_attempts - 1))
                             print(f"Retrying {parquet_file} in {wait_time} seconds. Attempt {retry_attempts} of {max_retries}.")
                             time.sleep(wait_time)
+
+    return dataset_generator()
+
+
+def get_dataset_from_single_parquet(partition_id, cache_dir=None, max_retries=3, backoff_factor=0.5):
+    """
+    Fetch the dataset from a single parquet file and return a generator that iterates through all audios.
+    """
+    parquet_file = get_parquet_file_path(partition_id)
+    def dataset_generator():
+        retry_attempts = 0
+        while retry_attempts < max_retries:
+            try:
+                if cache_dir:
+                    dataset = load_dataset("parquet", data_files={'train': parquet_file}, split="train", cache_dir=cache_dir)
+                else:
+                    dataset = load_dataset("parquet", data_files={'train': parquet_file}, split="train", streaming=True)
+
+                for example in dataset:
+                    yield example
+                break  # Exit the retry loop if no exceptions
+            except Exception as e:
+                retry_attempts += 1
+                if retry_attempts >= max_retries:
+                    print(f"Failed to process parquet file {parquet_file} after {max_retries} attempts. Error: {e}")
+                    raise
+                else:
+                    wait_time = backoff_factor * (2 ** (retry_attempts - 1))
+                    print(f"Retrying {parquet_file} in {wait_time} seconds. Attempt {retry_attempts} of {max_retries}.")
+                    time.sleep(wait_time)
 
     return dataset_generator()

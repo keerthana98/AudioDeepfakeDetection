@@ -19,12 +19,21 @@ ALL_PROSODIC_FEATURES = ['f0', 'energy', 'speaking_rate', 'pauses',  'formants']
 DEFAULT_VOICE_QUALITY_FEATURES = [
     'jitter',
     'shimmer',
-    'hnr'
+    'hnr',
+    'speech_rate'
 ]
 ALL_VOICE_QUALITY_FEATURES = [
     'jitter_local',	'jitter_rap', 'jitter_ppq5', 
     'shimmer_local', 'shimmer_apq3', 'shimmer_apq5', 'shimmer_dda', 
-    'hnr'
+    'hnr',
+    'voicedcount',
+    'npause',
+    'originaldur',
+    'intensity_duration',
+    'speakingrate',
+    'articulationrate',
+    'asd',
+    'totalpauseduration'
 ]
 
 
