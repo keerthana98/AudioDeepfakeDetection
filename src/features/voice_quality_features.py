@@ -207,8 +207,19 @@ class VoiceQualityFeatureExtractor:
             call(textgrid, "Insert point", 1, position, "")
 
         speakingrate = voicedcount / originaldur
-        articulationrate = voicedcount / speakingtot
+        
+        # Handling division by zero for articulationrate
+        if speakingtot != 0:
+            articulationrate = voicedcount / speakingtot
+        else:
+            articulationrate = float('nan')  # or any other value that makes sense
+
+        # Handling division by zero for asd
+        if voicedcount != 0:
+            asd = speakingtot / voicedcount
+        else:
+            asd = float('nan')  # or any other value that makes sense
+
         npause = npauses - 1
-        asd = speakingtot / voicedcount
 
         return voicedcount, npause, originaldur, intensity_duration, speakingrate, articulationrate, asd, total_pause_duration
