@@ -7,4 +7,8 @@ data_paths:
     audio_files: "data/raw/codecfake/audio"
     label_files: "data/raw/codecfake/label"
     cache_files: "data/raw/codecfake/cache"
+  wavefake:
+    zip_files: "data/raw/wavefake/zip"
+    audio_files: "data/raw/wavefake/audio"
+    cache_files: "data/raw/wavefake/cache"
     
